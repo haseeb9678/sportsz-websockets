@@ -14,6 +14,11 @@ export const getMatches = asyncHandler(async (req, res) => {
 
 export const createMatch = asyncHandler(async (req, res) => {
     const data = await createMatchService(req.body)
+    const broadcastMatchCreated = res.app.locals.broadcastMatchCreated
+
+    if (broadcastMatchCreated) {
+        broadcastMatchCreated(data)
+    }
     return res.status(201).json(
         new ApiResponse(201, "Match created successfully", data)
     )
