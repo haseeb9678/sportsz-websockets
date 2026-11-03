@@ -4,6 +4,8 @@ import matchesRouter from "./routes/matches.route.js"
 import { errorMiddle } from "./middlewares/error.middleware.js"
 import http from "http"
 import { attachWebSocketServer } from "./ws/server.js"
+import { apiLimiter } from "./middlewares/rate-limit.middleware.js"
+import commentoryRouter from "./routes/commentary.route.js"
 
 config()
 
@@ -16,13 +18,15 @@ const HOST = process.env.HOST || "0.0.0.0"
 app.use(express.json())
 const api = "/api/v1"
 
-const { broadcastMatchCreated } = attachWebSocketServer(httpServer)
+const { broadcastMatchCreated, broadcastMatchCommentary } = attachWebSocketServer(httpServer)
 
 //Locals
 app.locals.broadcastMatchCreated = broadcastMatchCreated
+app.locals.broadcastMatchCommentary = broadcastMatchCommentary
 
 //Routes
-app.use(`${api}/matches`, matchesRouter)
+app.use(`${api}/matches`, apiLimiter, matchesRouter)
+app.use(`${api}/matches/:id/commentories`, apiLimiter, commentoryRouter)
 
 //Global error
 app.use(errorMiddle)

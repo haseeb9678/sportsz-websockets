@@ -1,0 +1,1 @@
+ALTER TABLE "commentary" ADD COLUMN "message" text;
