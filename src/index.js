@@ -1,7 +1,10 @@
+import { config } from "dotenv"
 import express from "express"
 
+config()
+
 const app = express()
-const PORT = 8000
+const PORT = process.env.PORT || 3000
 
 app.use(express.json())
 
