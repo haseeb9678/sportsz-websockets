@@ -8,6 +8,13 @@
       "when": 1793689932834,
       "tag": "0000_stiff_chronomancer",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793714352302,
+      "tag": "0001_slimy_whirlwind",
+      "breakpoints": true
     }
   ]
 }
